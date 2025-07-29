@@ -1,0 +1,44 @@
+/* :root a la CSS Variables. This is where you define your "design system". */
+:root {
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --color-text: #333;
+  --color-bg: #fdfdfd;
+  --color-accent: #111;
+  --color-border: #eaeaea;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+main {
+  /* This is the key to centering your content. */
+  max-width: 960px; /* Or any width you prefer */
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  color: var(--color-accent);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center; /* Center the main title */
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}

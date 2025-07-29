@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import type { GetStaticPaths, MarkdownInstance } from 'astro';
+
+interface Frontmatter {
+  title: string;
+  description: string;
+  image?: string;
+  tags?: string[];
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // 修正：修正文件路径，从'../../../'改为'../../'
+  const allExhibits = await Astro.glob<Frontmatter>('../../content/exhibits/*.md');
+  return allExhibits.map(exhibit => {
+    const slug = exhibit.file.split('/').pop()!.replace('.md', '');
+    return {
+      params: { slug: slug },
+      props: { exhibit },
+    };
+  });
+};
+
+interface Props {
+  exhibit: MarkdownInstance<Frontmatter>;
+}
+const { exhibit } = Astro.props;
+const { frontmatter, Content } = exhibit;
+---
+
+<Layout title={frontmatter.title}>
+  <article class="exhibit-detail">
+    <h1 class="exhibit-title">{frontmatter.title}</h1>
+    <p class="exhibit-description">{frontmatter.description}</p>
+    
+    {frontmatter.image && (
+      <img src={frontmatter.image} alt={frontmatter.title} class="exhibit-image" />
+    )}
+
+    <div class="exhibit-content">
+      <Content />
+    </div>
+
+    <a href="/" class="back-link">← 返回展品收藏</a>
+  </article>
+</Layout>
+
+<style>
+  /* 样式保持不变 */
+  .exhibit-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .exhibit-title {
+    font-size: 3rem;
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+  .exhibit-description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+  .exhibit-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+  }
+  .exhibit-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  .exhibit-content h3 {
+    margin-top: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 4rem;
+    font-weight: bold;
+  }
+</style>

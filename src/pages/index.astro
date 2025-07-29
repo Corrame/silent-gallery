@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+// 这会读取你所有的展品文件
+const allExhibits = await Astro.glob('../content/exhibits/*.md');
+---
+<Layout title="寂静画廊 - 首页">
+	<h1>展品收藏</h1>
+	<div class="card-grid">
+{allExhibits.map((exhibit) => <Card frontmatter={exhibit.frontmatter} file={exhibit.file} />)}	</div>
+</Layout>
+
+<style>
+	.card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 1.5rem;
+		padding: 2rem 0;
+	}
+</style>

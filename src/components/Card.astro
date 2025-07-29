@@ -1,0 +1,59 @@
+---
+// 步骤1：接收'file'而不是'url'
+const { frontmatter, file } = Astro.props;
+const { title, description, image } = frontmatter;
+
+// 步骤2：根据'file'，稳健地构建出我们需要的链接路径
+// 这和我们在[...slug].astro里做的逻辑完全一样，确保了100%匹配
+const slug = file.split('/').pop()!.replace('.md', '');
+const exhibitPath = `/exhibits/${slug}`;
+
+// 我们不再需要console.log了，可以删掉它
+---
+<a href={exhibitPath} class="card">
+  {image && <img src={image} alt={title} loading="lazy" />}
+  <div class="card-content">
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </div>
+</a>
+
+<style>
+  /* 样式保持不变 */
+  .card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background-color: white;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+  }
+  .card-content h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .card-content p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+  }
+</style>
