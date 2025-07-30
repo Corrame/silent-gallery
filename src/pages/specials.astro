@@ -1,0 +1,55 @@
+---
+// src/pages/specials.astro
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="特展 - 寂静画廊">
+  <h1>特展收藏</h1>
+  <p class="subtitle">这里是画廊不定期推出的、关于特定主题的策展系列。</p>
+
+  <div class="special-list">
+    <a href="/specials/monthly-finds" class="special-card">
+      <h2>月度新发现</h2>
+      <p>追踪策展人最新发现的、充满时效性的展品清单。</p>
+    </a>
+    <a href="/specials/pantheon-movies" class="special-card">
+      <h2>电影封神榜</h2>
+      <p>那些经过时间考验的、定义了本画廊审美基石的影像作品。</p>
+    </a>
+    <!-- 未来你可以继续在这里添加新的特展链接 -->
+  </div>
+</Layout>
+
+<style>
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-top: -1.5rem;
+    margin-bottom: 3rem;
+  }
+  .special-list {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .special-card {
+    display: block;
+    background-color: white;
+    border: 1px solid var(--color-border);
+    padding: 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .special-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  .special-card h2 {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-accent);
+  }
+  .special-card p {
+    margin: 0;
+    color: #666;
+  }
+</style>

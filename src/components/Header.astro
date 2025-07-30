@@ -1,0 +1,44 @@
+---
+// src/components/Header.astro
+---
+<header>
+  <nav>
+    <a href="/" class="nav-link logo">寂静画廊</a>
+    <div class="nav-links">
+      <a href="/archive" class="nav-link">所有展品</a>
+      <a href="/specials" class="nav-link">特展</a>
+      <a href="/about" class="nav-link">关于</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+  }
+  .nav-link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .nav-links a {
+    margin-left: 1.5rem;
+  }
+</style>

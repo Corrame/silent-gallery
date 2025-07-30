@@ -1,0 +1,66 @@
+---
+// src/pages/archive.astro
+import Layout from '../layouts/Layout.astro';
+
+// 获取所有展品
+const allExhibits = await Astro.glob('../content/exhibits/*.md');
+
+// 按日期倒序排列
+allExhibits.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+
+// Helper function to format date
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+---
+<Layout title="所有展品 - 寂静画廊">
+  <h1>所有展品</h1>
+  <p class="subtitle">一份按时间倒序排列的、完整的策展档案。</p>
+
+  <ul class="archive-list">
+    {allExhibits.map(exhibit => {
+      const slug = exhibit.file.split('/').pop().replace('.md', '');
+      const path = `/exhibits/${slug}`;
+      return (
+        <li class="archive-item">
+          <span class="archive-date">{formatDate(exhibit.frontmatter.pubDate)}</span>
+          <a href={path} class="archive-title">{exhibit.frontmatter.title}</a>
+        </li>
+      )
+    })}
+  </ul>
+</Layout>
+
+<style>
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-top: -1.5rem;
+    margin-bottom: 3rem;
+  }
+  .archive-list {
+    list-style: none;
+    padding: 0;
+  }
+  .archive-item {
+    display: flex;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .archive-date {
+    font-size: 0.9rem;
+    color: #888;
+    width: 140px; /* 固定日期宽度，使其对齐 */
+    flex-shrink: 0;
+  }
+  .archive-title {
+    font-weight: 500;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+</style>

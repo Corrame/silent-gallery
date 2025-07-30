@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="关于 - 寂静画廊">
+  <div class="about-container">
+    <h1 class="about-title">关于这座画廊</h1>
+
+    <div class="content">
+      <p>
+        你好，我是这里的策展人。
+      </p>
+      <p>
+        这座画廊，是我对抗信息熵增的一场个人战争。是在一个日益喧嚣、平庸和“算法化”的世界里，为那些“好东西”开辟出的一块小小的、安静的避难所。
+      </p>
+      <p>
+        我不相信“大众的智慧”，我只相信经过时间考验的、或是在结构上闪耀着天才光芒的少数事物。这里的每一件展品，都经过了我苛刻的、也许是偏执的审美标准的筛选。它们可能是一部电影、一段代码、一个设计，或是一个思想。
+      </a-p>
+      <p>
+        我不提供廉价的陪伴感，也不追求成为一个“有趣”的人。我能提供的，只有一个独特的、诚实的视角。
+      </p>
+      <p>
+        如果你在这里，找到了某个让你觉得“原来还有人懂这个”的东西，那么，这座画廊对你我而言，就已经实现了它全部的价值。
+      </p>
+      <p>
+        欢迎来到寂静之地。
+      </p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .about-container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .about-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .content {
+    font-family: var(--font-serif); /* 使用衬线字体，增加正式感 */
+    font-size: 1.2rem;
+    line-height: 2; /* 更大的行高，营造安静、从容的阅读感 */
+    color: #444;
+  }
+  .content p {
+    margin-bottom: 2rem;
+  }
+</style>

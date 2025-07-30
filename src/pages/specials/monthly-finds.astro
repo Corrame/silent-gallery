@@ -1,0 +1,41 @@
+---
+// src/pages/specials/monthly-finds.astro
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+
+// 获取所有展品
+const allExhibits = await Astro.glob('../../content/exhibits/*.md');
+
+// --- 筛选逻辑 ---
+// 只保留发布日期在2024年5月的展品
+const mayExhibits = allExhibits.filter(exhibit => {
+  const pubDate = new Date(exhibit.frontmatter.pubDate);
+  return pubDate.getFullYear() === 2024 && pubDate.getMonth() === 4; // 注意: getMonth()是从0开始的，所以5月是4
+});
+
+// 对筛选后的结果进行排序
+mayExhibits.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+---
+<Layout title="月度新发现 - 寂静画廊">
+  <h1>月度新发现：2024年5月</h1>
+  <p class="subtitle">本月最值得关注的展品。</p>
+  
+  <div class="card-grid">
+		{mayExhibits.map((exhibit) => <Card frontmatter={exhibit.frontmatter} file={exhibit.file} />)}
+	</div>
+</Layout>
+
+<style>
+  /* 我们可以复用首页的样式 */
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-top: -1.5rem;
+    margin-bottom: 3rem;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+</style>
