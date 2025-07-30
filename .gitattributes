@@ -1,2 +1,2 @@
 * text=auto eol=lf
-*.sh eol=lf executable
+*.md text eol=lf
