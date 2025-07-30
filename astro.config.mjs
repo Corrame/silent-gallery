@@ -1,8 +1,6 @@
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'hybrid',
-  adapter: vercel(),
+  // 我们删除了所有 output 和 adapter 的设置
 });
