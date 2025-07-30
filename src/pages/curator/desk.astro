@@ -1,0 +1,57 @@
+---
+// src/pages/curator/desk.astro
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="策展人后台">
+  <div class="desk-container">
+    <h1>策展人后台</h1>
+    <p>在这里，扔下你的“原始材料”，AI管家会自动为你生成并提交展品。</p>
+    <form id="curator-form">
+      <textarea id="dirty-input" placeholder="比如：这是第6件作品。\n我觉得《赛博朋克：边缘行者》不错..."></textarea>
+      <button type="submit" id="submit-btn">提交给炼金术士</button>
+      <div id="status-message"></div>
+    </form>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('curator-form');
+  const input = document.getElementById('dirty-input');
+  const button = document.getElementById('submit-btn');
+  const statusMessage = document.getElementById('status-message');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    button.textContent = '正在提交中...';
+    statusMessage.textContent = '';
+
+    try {
+      const response = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dirtyInput: input.value }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        statusMessage.textContent = result.message;
+        statusMessage.style.color = 'green';
+        input.value = ''; // 成功后清空输入框
+      } else {
+        throw new Error(result.error || '未知错误');
+      }
+    } catch (error) {
+      statusMessage.textContent = `出错了: ${error.message}`;
+      statusMessage.style.color = 'red';
+    } finally {
+      button.disabled = false;
+      button.textContent = '提交给炼金术士';
+    }
+  });
+</script>
+
+<style>
+/* 这里省略了样式，但它会是简洁、适合移动端的 */
+</style>
