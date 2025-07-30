@@ -49,12 +49,3 @@ export async function POST({ request }) {
     return new Response(JSON.stringify({ error: errorMessage }), { status: 500 });
   }
 }
-
-// 【关键新增】我们增加一个GET处理器，用于测试函数本身是否部署成功
-export async function GET(request) {
-    console.log("[API PING] GET request received. The function is alive.");
-    return new Response(JSON.stringify({ message: "Hello from the /api/submit endpoint. I am alive." }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-    });
-}
