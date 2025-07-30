@@ -176,6 +176,20 @@ declare module 'astro:content' {
   collection: "exhibits";
   data: any
 } & { render(): Render[".md"] };
+"exhibit-6.md": {
+	id: "exhibit-6.md";
+  slug: "exhibit-6";
+  body: string;
+  collection: "exhibits";
+  data: any
+} & { render(): Render[".md"] };
+"exhibit-7.md": {
+	id: "exhibit-7.md";
+  slug: "exhibit-7";
+  body: string;
+  collection: "exhibits";
+  data: any
+} & { render(): Render[".md"] };
 };
 
 	};
