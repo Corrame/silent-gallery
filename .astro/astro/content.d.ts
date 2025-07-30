@@ -141,9 +141,37 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"exhibits": {
-"exhibit-0.md": {
-	id: "exhibit-0.md";
-  slug: "exhibit-0";
+"exhibit-1.md": {
+	id: "exhibit-1.md";
+  slug: "exhibit-1";
+  body: string;
+  collection: "exhibits";
+  data: any
+} & { render(): Render[".md"] };
+"exhibit-2.md": {
+	id: "exhibit-2.md";
+  slug: "exhibit-2";
+  body: string;
+  collection: "exhibits";
+  data: any
+} & { render(): Render[".md"] };
+"exhibit-3.md": {
+	id: "exhibit-3.md";
+  slug: "exhibit-3";
+  body: string;
+  collection: "exhibits";
+  data: any
+} & { render(): Render[".md"] };
+"exhibit-4.md": {
+	id: "exhibit-4.md";
+  slug: "exhibit-4";
+  body: string;
+  collection: "exhibits";
+  data: any
+} & { render(): Render[".md"] };
+"exhibit-5.md": {
+	id: "exhibit-5.md";
+  slug: "exhibit-5";
   body: string;
   collection: "exhibits";
   data: any
