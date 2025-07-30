@@ -1,1 +1,8 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/curator/desk",
+      "destination": "/api/auth?page=/curator/desk"
+    }
+  ]
+}
