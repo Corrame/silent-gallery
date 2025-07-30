@@ -1,32 +1,49 @@
 ---
-// src/pages/specials/monthly-finds.astro
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
 
-// 获取所有展品
-const allExhibits = await Astro.glob('../../content/exhibits/*.md');
+// --- 动态时间逻辑 (保持不变) ---
+const now = new Date();
+const currentYear = now.getFullYear();
+const currentMonth = now.getMonth();
+const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+const currentMonthName = monthNames[currentMonth];
 
-// --- 筛选逻辑 ---
-// 只保留发布日期在2024年5月的展品
-const mayExhibits = allExhibits.filter(exhibit => {
-  const pubDate = new Date(exhibit.frontmatter.pubDate);
-  return pubDate.getFullYear() === 2024 && pubDate.getMonth() === 4; // 注意: getMonth()是从0开始的，所以5月是4
+// --- 新的数据获取方式 ---
+const allExhibits = await getCollection('exhibits');
+
+// --- 动态筛选逻辑 (现在基于 exhibit.data) ---
+const monthlyExhibits = allExhibits.filter(exhibit => {
+  const pubDate = exhibit.data.pubDate; // 直接使用Date对象
+  return pubDate.getFullYear() === currentYear && pubDate.getMonth() === currentMonth;
 });
 
-// 对筛选后的结果进行排序
-mayExhibits.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+// 排序逻辑 (现在基于 exhibit.data)
+monthlyExhibits.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 <Layout title="月度新发现 - 寂静画廊">
-  <h1>月度新发现：2024年5月</h1>
+  <h1>月度新发现：{currentYear}年 {currentMonthName}</h1>
   <p class="subtitle">本月最值得关注的展品。</p>
   
-  <div class="card-grid">
-		{mayExhibits.map((exhibit) => <Card frontmatter={exhibit.frontmatter} file={exhibit.file} />)}
-	</div>
+  {monthlyExhibits.length > 0 ? (
+    <div class="card-grid">
+      <!-- 循环也已更新 -->
+      {monthlyExhibits.map((exhibit) => <Card exhibit={exhibit} />)}
+    </div>
+  ) : (
+    <p class="no-exhibits">本月尚未有新展品。</p>
+  )}
 </Layout>
 
 <style>
-  /* 我们可以复用首页的样式 */
+  /* 样式保持不变，但增加一个“无展品”提示的样式 */
+  .no-exhibits {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    padding: 2rem 0;
+  }
   .subtitle {
     text-align: center;
     color: #666;

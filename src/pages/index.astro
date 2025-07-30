@@ -1,34 +1,34 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 
-// --- 数据准备 ---
+// 新方法：获取所有展品
+const allExhibits = await getCollection('exhibits');
 
-// 1. 获取所有展品
-const allExhibits = await Astro.glob('../content/exhibits/*.md');
+// 排序逻辑不变，但现在我们访问的是 exhibit.data
+allExhibits.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-// 2. 按日期对所有展品进行排序
-allExhibits.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
-
-// 3. 只取出最新的3个展品，用于“最新更新”部分
+// 取最新的3个
 const latestExhibits = allExhibits.slice(0, 3);
-
-// --- 页面渲染 ---
 ---
 <Layout title="寂静画廊 - 首页">
   
-  <!-- 第一部分：最新更新 -->
   <section class="latest-section">
     <h2 class="section-title">最新展品</h2>
     <div class="card-grid">
-      {latestExhibits.map((exhibit) => <Card frontmatter={exhibit.frontmatter} file={exhibit.file} />)}
+      <!-- 
+        这里的循环也变了：
+        - 我们现在循环的是 latestExhibits
+        - frontmatter 变成了 exhibit.data
+        - file 变成了 exhibit.slug (这是内容集合提供的新属性)
+      -->
+      {latestExhibits.map((exhibit) => <Card exhibit={exhibit} />)}
     </div>
   </section>
 
-  <!-- 分割线 -->
   <hr class="section-divider" />
 
-  <!-- 第二部分：特展入口 -->
   <section class="specials-section">
     <h2 class="section-title">特展收藏</h2>
     <div class="special-list">
@@ -40,16 +40,14 @@ const latestExhibits = allExhibits.slice(0, 3);
         <h3>电影封神榜</h3>
         <p>那些经过时间考验的、定义了本画廊审美基石的影像作品。</p>
       </a>
-      <!-- 未来你可以继续在这里添加新的特展链接 -->
     </div>
-    <!-- 
-      我们已经将这个链接的功能，统一到了顶部的导航栏中。
-      因此，这里底部的链接将被移除，以保持设计的简洁和逻辑的清晰。
-    -->
   </section>
 
 </Layout>
 
+<style>
+  /* 样式保持不变 */
+</style>
 <style>
   /* 通用样式 */
   .section-title {

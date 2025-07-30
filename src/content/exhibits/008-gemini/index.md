@@ -1,11 +1,11 @@
 ---
 title: "展品 #008: 维多利亚3 - 社会模拟的野心与复杂性的代价"
 description: "《维多利亚3》以人口为核心，模拟19世纪社会变迁，但复杂性与战争机制简化造成体验两极。"
-image: ""
+cover: "./cover.jpg"  # <-- 像这样引用同文件夹下的图片
 pubDate: "2025-07-30T21:00:00+08:00"
 timestamp: 1751326800
 tags: ['历史策略', '社会模拟', '经济管理', '维多利亚时代', 'P社']
-layout: '../../layouts/Layout.astro'
+layout: '../../../layouts/Layout.astro'
 ---
 
 ### 策展人笔记：

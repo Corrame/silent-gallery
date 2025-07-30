@@ -1,11 +1,11 @@
 ---
 title: "展品 #001: Google AI Studio 与 Gemini"
 description: "一个能让开发者和创作者直接与Google最先进AI模型对话、进行原型设计的Web平台。这座画廊，本身就是它的一个产物。"
-image: "/images/ai-studio.jpg" # 建议你找一张AI Studio的界面截图
+cover: "./cover.jpg"  # <-- 像这样引用同文件夹下的图片
 pubDate: "2025-07-30T00:00:00+08:00"
 timestamp: 1751251200
 tags: ['AI', '创作工具', 'Gemini', '人机交互', '元认知']
-layout: '../../layouts/Layout.astro'
+layout: '../../../layouts/Layout.astro'
 ---
 
 ### 策展人笔记：

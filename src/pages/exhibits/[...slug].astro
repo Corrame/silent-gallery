@@ -1,47 +1,47 @@
 ---
+// src/pages/exhibits/[...slug].astro
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import type { GetStaticPaths, MarkdownInstance } from 'astro';
 
-interface Frontmatter {
-  title: string;
-  description: string;
-  image?: string;
-  tags?: string[];
+// 我们不再需要任何手动的Astro.glob或寻图函数了
+
+export async function getStaticPaths() {
+  const allExhibits = await getCollection('exhibits');
+  return allExhibits.map(exhibit => ({
+    params: { slug: exhibit.slug },
+    props: { exhibit },
+  }));
 }
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  // 修正：修正文件路径，从'../../../'改为'../../'
-  const allExhibits = await Astro.glob<Frontmatter>('../../content/exhibits/*.md');
-  return allExhibits.map(exhibit => {
-    const slug = exhibit.file.split('/').pop()!.replace('.md', '');
-    return {
-      params: { slug: slug },
-      props: { exhibit },
-    };
-  });
-};
 
 interface Props {
-  exhibit: MarkdownInstance<Frontmatter>;
+  exhibit: CollectionEntry<'exhibits'>;
 }
-const { exhibit } = Astro.props;
-const { frontmatter, Content } = exhibit;
----
 
-<Layout title={frontmatter.title}>
+const { exhibit } = Astro.props;
+const { Content } = await exhibit.render();
+---
+<Layout title={exhibit.data.title}>
   <article class="exhibit-detail">
-    <h1 class="exhibit-title">{frontmatter.title}</h1>
-    <p class="exhibit-description">{frontmatter.description}</p>
+    <h1 class="exhibit-title">{exhibit.data.title}</h1>
+    <p class="exhibit-description">{exhibit.data.description}</p>
     
-    {frontmatter.image && (
-      <img src={frontmatter.image} alt={frontmatter.title} class="exhibit-image" />
+    {exhibit.data.cover && (
+      <Image 
+        src={exhibit.data.cover} 
+        alt={exhibit.data.title} 
+        widths={[400, 800]} 
+        sizes="(max-width: 800px) 100vw, 800px"
+        class="exhibit-image"
+        format="webp"
+      />
     )}
 
     <div class="exhibit-content">
       <Content />
     </div>
 
-    <a href="/" class="back-link">← 返回展品收藏</a>
+    <a href="/archive" class="back-link">← 返回所有展品</a>
   </article>
 </Layout>
 
@@ -50,6 +50,14 @@ const { frontmatter, Content } = exhibit;
   .exhibit-detail {
     max-width: 800px;
     margin: 0 auto;
+  }
+  .exhibit-image {
+    width: 100%;
+    height: auto; /* 保持图片原始比例 */
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 3rem;
   }
   .exhibit-title {
     font-size: 3rem;

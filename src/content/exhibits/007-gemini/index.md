@@ -1,11 +1,11 @@
 ---
 title: "展品 #007: BanG Dream! It's MyGO!!!!! - 迷失之歌的朋克救赎"
 description: "通过现实主义叙事与朋克精神，MyGO!!!!!将音乐动画从轻快女团模式升华为深刻的情感探索。"
-image: ""
+cover: "./cover.jpg"  # <-- 像这样引用同文件夹下的图片
 pubDate: "2025-07-30T18:00:00+08:00"
 timestamp: 1751316000
 tags: ['音乐动画', '朋克摇滚', '现实主义', '人际关系', '创伤叙事']
-layout: '../../layouts/Layout.astro'
+layout: '../../../layouts/Layout.astro'
 ---
 
 ### 策展人笔记：

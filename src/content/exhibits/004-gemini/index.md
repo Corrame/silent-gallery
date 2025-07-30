@@ -1,11 +1,11 @@
 ---
 title: "展品 #004: 命运石之门 - ‘世界线’的重量"
 description: "一部关于时间旅行的视觉小说，其伟大之处不在于物理学的严谨，而在于对‘因果’的每一次微小改变所带来的、令人窒息的情感重量的极致描绘。"
-image: "/images/steinsgate.jpg" # 提醒：你需要找一张相关图片
+cover: "./cover.jpg"  # <-- 像这样引用同文件夹下的图片
 pubDate: "2025-07-30T09:00:00+08:00"
 timestamp: 1751283600
 tags: ['视觉小说', '时间旅行', '因果律', '情感体验']
-layout: '../../layouts/Layout.astro'
+layout: '../../../layouts/Layout.astro'
 ---
 
 ### 策展人笔记：

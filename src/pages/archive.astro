@@ -1,38 +1,21 @@
 ---
-// src/pages/archive.astro
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+// 我们将复用我们的Card组件，因为它已经很完美了
+import Card from '../components/Card.astro';
 
-// 获取所有展品
-const allExhibits = await Astro.glob('../content/exhibits/*.md');
-
-// 按日期倒序排列
-allExhibits.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
-
-// Helper function to format date
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
+// 数据获取和排序保持不变
+const allExhibits = await getCollection('exhibits');
+allExhibits.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 <Layout title="所有展品 - 寂静画廊">
   <h1>所有展品</h1>
   <p class="subtitle">一份按时间倒序排列的、完整的策展档案。</p>
 
-  <ul class="archive-list">
-    {allExhibits.map(exhibit => {
-      const slug = exhibit.file.split('/').pop().replace('.md', '');
-      const path = `/exhibits/${slug}`;
-      return (
-        <li class="archive-item">
-          <span class="archive-date">{formatDate(exhibit.frontmatter.pubDate)}</span>
-          <a href={path} class="archive-title">{exhibit.frontmatter.title}</a>
-        </li>
-      )
-    })}
-  </ul>
+  <!-- 我们不再使用ul列表，而是使用和首页一样的card-grid布局 -->
+  <div class="archive-grid">
+		{allExhibits.map((exhibit) => <Card exhibit={exhibit} />)}
+	</div>
 </Layout>
 
 <style>
@@ -42,25 +25,24 @@ function formatDate(dateStr) {
     margin-top: -1.5rem;
     margin-bottom: 3rem;
   }
-  .archive-list {
-    list-style: none;
-    padding: 0;
+
+  /* --- 这是我们新的“微缩卡片网格”样式 --- */
+  .archive-grid {
+    display: grid;
+    /* 关键改动：让卡片的最小宽度更小，这样一行能容纳更多 */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    gap: 1.25rem; /* 间距也稍微缩小一点 */
   }
-  .archive-item {
-    display: flex;
-    align-items: baseline;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .archive-date {
-    font-size: 0.9rem;
-    color: #888;
-    width: 140px; /* 固定日期宽度，使其对齐 */
-    flex-shrink: 0;
-  }
-  .archive-title {
-    font-weight: 500;
+
+  /* 
+    因为我们直接复用了Card组件，所以不需要为卡片本身写新的样式。
+    但是，为了让Card组件在更小的空间里表现更好，我们可以通过
+    全局选择器，微调它内部的字体大小。
+  */
+  .archive-grid :global(.card-content h2) {
     font-size: 1.1rem;
-    line-height: 1.5;
+  }
+  .archive-grid :global(.card-content p) {
+    font-size: 0.9rem;
   }
 </style>

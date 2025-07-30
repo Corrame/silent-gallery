@@ -1,11 +1,11 @@
 ---
 title: "展品 #005: iPad Pro 2021 (M1) - 容器超越了内容"
 description: "一款硬件性能强大到“过剩”的设备。它的存在，本身就是对主流软件生态创造力不足的一种无声的、残酷的批判。"
-# 没有image属性，测试占位符
+cover: "./cover.jpg"  # <-- 像这样引用同文件夹下的图片
 pubDate: "2025-07-30T12:00:00+08:00"
 timestamp: 1751294400
 tags: ['硬件', '产品设计', '苹果', '性能过剩', '生态']
-layout: '../../layouts/Layout.astro'
+layout: '../../../layouts/Layout.astro'
 ---
 
 ### 策展人笔记：

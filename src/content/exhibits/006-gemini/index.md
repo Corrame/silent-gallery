@@ -1,11 +1,11 @@
 ---
 title: "展品 #006: Mobile Suit Gundam GQuuuuuuX -Beginning- - 重塑历史的时间裂隙"
 description: "《Mobile Suit Gundam GQuuuuuuX -Beginning-》通过重构宇宙世纪历史，探索技术与人性在战争与自由间的张力。"
-image: "/images/gquuuuuux-beginning.jpg"
+cover: "./cover.jpg"  # <-- 像这样引用同文件夹下的图片
 pubDate: "2025-07-30T15:00:00+08:00"
 timestamp: 1751305200
 tags: ["高达", "机甲", "科幻", "宇宙世纪", "历史重构"]
-layout: "../../layouts/Layout.astro"
+layout: '../../../layouts/Layout.astro'
 ---
 
 ### 策展人笔记：

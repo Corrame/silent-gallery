@@ -141,61 +141,61 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"exhibits": {
-"exhibit-1.md": {
-	id: "exhibit-1.md";
-  slug: "exhibit-1";
+"001-gemini/index.md": {
+	id: "001-gemini/index.md";
+  slug: "001-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
-"exhibit-2.md": {
-	id: "exhibit-2.md";
-  slug: "exhibit-2";
+"002-gemini/index.md": {
+	id: "002-gemini/index.md";
+  slug: "002-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
-"exhibit-3.md": {
-	id: "exhibit-3.md";
-  slug: "exhibit-3";
+"003-gemini/index.md": {
+	id: "003-gemini/index.md";
+  slug: "003-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
-"exhibit-4.md": {
-	id: "exhibit-4.md";
-  slug: "exhibit-4";
+"004-gemini/index.md": {
+	id: "004-gemini/index.md";
+  slug: "004-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
-"exhibit-5.md": {
-	id: "exhibit-5.md";
-  slug: "exhibit-5";
+"005-gemini/index.md": {
+	id: "005-gemini/index.md";
+  slug: "005-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
-"exhibit-6.md": {
-	id: "exhibit-6.md";
-  slug: "exhibit-6";
+"006-gemini/index.md": {
+	id: "006-gemini/index.md";
+  slug: "006-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
-"exhibit-7.md": {
-	id: "exhibit-7.md";
-  slug: "exhibit-7";
+"007-gemini/index.md": {
+	id: "007-gemini/index.md";
+  slug: "007-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
-"exhibit-8.md": {
-	id: "exhibit-8.md";
-  slug: "exhibit-8";
+"008-gemini/index.md": {
+	id: "008-gemini/index.md";
+  slug: "008-gemini";
   body: string;
   collection: "exhibits";
-  data: any
+  data: InferEntrySchema<"exhibits">
 } & { render(): Render[".md"] };
 };
 
@@ -207,5 +207,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("./../../src/content/config.js");
 }

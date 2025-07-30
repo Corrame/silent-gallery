@@ -1,29 +1,29 @@
 ---
-// src/pages/specials/pantheon-movies.astro
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
 
-// 获取所有展品
-const allExhibits = await Astro.glob('../../content/exhibits/*.md');
+// --- 新的数据获取方式 ---
+const allExhibits = await getCollection('exhibits');
 
-// --- 筛选逻辑 ---
-// 只保留frontmatter中包含'电影'或'动画'标签的展品
+// --- 筛选逻辑 (现在基于 exhibit.data.tags) ---
 const movieExhibits = allExhibits.filter(exhibit => {
-  const tags = exhibit.frontmatter.tags || [];
+  const tags = exhibit.data.tags || [];
   return tags.includes('电影') || tags.includes('动画');
 });
 
-// 对筛选后的结果进行排序
-movieExhibits.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+// 排序逻辑 (现在基于 exhibit.data)
+movieExhibits.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 <Layout title="电影封神榜 - 寂静画廊">
   <h1>电影封神榜</h1>
   <p class="subtitle">那些塑造了本画廊核心审美的影像作品。</p>
   
   <div class="card-grid">
-		{movieExhibits.map((exhibit) => <Card frontmatter={exhibit.frontmatter} file={exhibit.file} />)}
+		{movieExhibits.map((exhibit) => <Card exhibit={exhibit} />)}
 	</div>
 </Layout>
+
 
 <style>
   /* 同样复用首页的样式 */

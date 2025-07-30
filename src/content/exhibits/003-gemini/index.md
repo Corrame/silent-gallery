@@ -1,11 +1,11 @@
 ---
 title: "展品 #003: 魔法少女小圆 - 对‘希望’的解构"
 description: "它将一个充满爱与勇气的童话类型，重铸为一个关于熵、契约和宇宙法则的冷酷悲剧。一部颠覆了‘魔法少女’这个概念本身的元叙事作品。"
-image: "/images/madoka.jpg" # 提醒：你需要找一张相关图片
+cover: "./cover.jpg"  # <-- 像这样引用同文件夹下的图片
 pubDate: "2025-07-30T06:00:00+08:00"
 timestamp: 1751272800
 tags: ['动画', '解构主义', '虚渊玄', '叙事设计']
-layout: '../../layouts/Layout.astro'
+layout: '../../../layouts/Layout.astro'
 ---
 
 ### 策展人笔记：
